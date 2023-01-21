@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>product-management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+
+        <section class="product-form">
+
+            <div>
+                <label>ID</label>
+                <input type="number" placeholder="ID">
+            </div>
+
+            <div>
+                <label>Product Name</label>
+                <input type="text" placeholder="product name">
+            </div>
+
+            <div>
+                <label>Price</label>
+                <input type="number" placeholder="price">
+            </div>
+
+            <button onclick="addProduct()">Add</button>
+
+        </section>
+
+        <section class="product-tbl-sec">
+            <table class="product-tbl">
+                <thead>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                </thead>
+            </table>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
