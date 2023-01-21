@@ -18,6 +18,11 @@ function addProduct() {
     const price = document.getElementById("price").value;
     const priceNode = document.createTextNode(price);
 
+    if (id === "" || name === "" || price === "") {
+        alert("field can't be empty!!!");
+        return;
+    }
+
     const btEdit = document.createElement('button');
     const textEdit = document.createTextNode("Edit");       
     btEdit.appendChild(textEdit);
