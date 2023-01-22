@@ -1,125 +1,125 @@
-
+function createNode(item) {
+  return document.createTextNode(item);
+}
 function doesExist(number) {
-    const items = [...document.getElementsByClassName('product-id')];
-    const item = items.find(function(item) {
-        return (item.innerText === number);
-    });
-    return Boolean(item);
+  const items = [...document.getElementsByClassName("product-id")];
+  const item = items.find(function (item) {
+    return item.innerText === number;
+  });
+  return Boolean(item);
+}
+function inputFieldInitiation() {
+  document.getElementById("pid").style.borderColor = "black";
+  document.getElementById("pname").style.borderColor = "black";
+  document.getElementById("price").style.borderColor = "black";
+  document.getElementById("error1").textContent = "";
+  document.getElementById("error2").textContent = "";
+  document.getElementById("error3").textContent = "";
+}
+function errorMsg(idName, error, text) {
+  document.getElementById(idName).style.borderColor = "red";
+  error.textContent = text;
+  error.style.color = "red";
+  error.style.fontSize = "10px";
+  return;
+}
+function isEmpty(id, name, price) {
+  if (id === "") {
+    errorMsg("pid", error1, "field can't be empty!!!");
+    return true;
+  }
+  if (name === "") {
+    errorMsg("pname", error2, "field can't be empty!!!");
+    return true;
+  }
+  if (price === "") {
+    errorMsg("price", error3, "field can't be empty!!!");
+    return true;
+  }
+  return false;
+}
+function make_td(node) {
+  const td = document.createElement("td");
+  td.appendChild(node);
+  return td;
+}
+function onDeleteRow(e) {
+  if (!e.target.classList.contains("deleteBtn")) {
+    return;
+  }
+  const btn = e.target;
+  btn.closest("tr").remove();
 }
 
-// function errorMessage(text) {
-//     const error = document.getElementById("error");
-//     error.textContent = text;
-//     error.style.color = "red";
-//     error.style.fontSize = "10px";
-// }
-
 function addProduct() {
-    // alert("product added!!!");
+  const id = document.getElementById("pid").value;
+  const idNode = createNode(id);
+  const error1 = document.getElementById("error1");
+  if (doesExist(id)) {
+    errorMsg("pid", error1, "Duplicate!!!");
+    return;
+  } else inputFieldInitiation();
 
-    // extract id from input field and create a text node for id
-    const id = document.getElementById("pid").value;
-    const idNode = document.createTextNode(id);
-    const error1 = document.getElementById("error1");
-    if (doesExist(id)) {
-        document.getElementById("pid").style.borderColor = "red";
-        error1.textContent = "duplicate!!!";
-        error1.style.color = "red";
-        error1.style.fontSize = "10px";
-        return;
-    }
-    else {
-        document.getElementById("pid").style.borderColor = "black";
-        error1.textContent = "";
-    }
+  // extract name from input field and create a text node for name
+  const name = document.getElementById("pname").value;
+  name.trim();
+  const nameNode = document.createTextNode(name);
+  const error2 = document.getElementById("error2");
+  if (name.length > 60) {
+    errorMsg(
+      "pname",
+      error2,
+      "product name can't be longer than 60 characters!!!"
+    );
+    return;
+  }
+  inputFieldInitiation();
 
-    // extract name from input field and create a text node for name
-    const name = document.getElementById("pname").value;
-    name.trim();
-    const nameNode = document.createTextNode(name);
-    const error2 = document.getElementById("error2");
-    if(name.length > 60) {
-        document.getElementById("pname").style.borderColor = "red";
-        error2.textContent = "product name can't be longer than 60 characters!!!";
-        error2.style.color = "red";
-        error2.style.fontSize = "10px";
-        return;
-    }  
-    else {
-        document.getElementById("pname").style.borderColor = "black";
-        error2.textContent = "";
-    }
-    
+  // extract price from input field and create a text node for price
+  const price = document.getElementById("price").value;
+  const priceNode = document.createTextNode(price);
+  const error3 = document.getElementById("error3");
+  if (price < 0 || price > 100000) {
+    errorMsg(
+      "price",
+      error3,
+      "Product price can't be greater than 100000 and it must be positive!!!"
+    );
+    return;
+  }
+  inputFieldInitiation();
 
-    // extract price from input field and create a text node for price
-    const price = document.getElementById("price").value;
-    const priceNode = document.createTextNode(price);
-    const error3 = document.getElementById("error3");
-    if(price < 0 || price > 100000) {
-        document.getElementById("price").style.borderColor = "red";
-        error3.textContent = "Product price can't be greater than 100000 and it must be positive!!!";
-        error3.style.color = "red";
-        error3.style.fontSize = "10px";
-        return;
-    }
-    else {
-        document.getElementById("price").style.borderColor = "black";
-        error3.textContent = "";
-    }
-    
-    if (id === "" || name === "" || price === "") {
-        // error3 = document.getElementById("error3");
-        error3.textContent = "field can't be empty!!!";
-        error3.style.color = "red";
-        error3.style.fontSize = "10px";
-        return;
-    }
-    else {
-        document.getElementById("price").style.borderColor = "black";
-        error3.textContent = "";
-    }
+  if (isEmpty(id, name, price)) {
+    return;
+  }
+  inputFieldInitiation();
 
-    const btEdit = document.createElement('button');
-    const textEdit = document.createTextNode("Edit");       
-    btEdit.appendChild(textEdit);
-    
-    const btDelete = document.createElement('button');
-    btDelete.className = "deleteBtn";
-    const textDelete = document.createTextNode("Delete");       
-    btDelete.appendChild(textDelete);
-    
+  const btEdit = document.createElement("button");
+  const textEdit = createNode("Edit");
+  btEdit.appendChild(textEdit);
 
-    const tdId = document.createElement('td');
-    tdId.className = 'product-id';
-    tdId.appendChild(idNode);
-    const tdName = document.createElement('td');
-    tdName.appendChild(nameNode);
-    const tdPrice = document.createElement('td');
-    tdPrice.appendChild(priceNode);
-    const tdEdit = document.createElement('td');
-    tdEdit.appendChild(btEdit);
-    const tdDelete = document.createElement('td');
-    tdDelete.appendChild(btDelete);
+  const btDelete = document.createElement("button");
+  btDelete.className = "deleteBtn";
+  const textDelete = createNode("Delete");
+  btDelete.appendChild(textDelete);
 
-    const tr = document.createElement('tr');
-    tr.appendChild(tdId);
-    tr.appendChild(tdName);
-    tr.appendChild(tdPrice);
-    tr.appendChild(tdEdit);
-    tr.appendChild(tdDelete);
+  const tdId = make_td(idNode);
+  tdId.className = "product-id";
+  const tdName = make_td(nameNode);
+  const tdPrice = make_td(priceNode);
+  const tdEdit = make_td(btEdit);
+  const tdDelete = make_td(btDelete);
 
-    const table = document.getElementById('table');
-    table.appendChild(tr);
+  const tr = document.createElement("tr");
+  tr.appendChild(tdId);
+  tr.appendChild(tdName);
+  tr.appendChild(tdPrice);
+  tr.appendChild(tdEdit);
+  tr.appendChild(tdDelete);
 
-    function onDeleteRow(e) {
-        if(!e.target.classList.contains('deleteBtn')) {
-            return;
-        }
-        const btn = e.target;
-        btn.closest("tr").remove();
-    }
+  const table = document.getElementById("table");
+  table.appendChild(tr);
 
-    const tableEl = document.querySelector("table");
-    tableEl.addEventListener('click', onDeleteRow);
-    
+  const tableEl = document.querySelector("table");
+  tableEl.addEventListener("click", onDeleteRow);
 }
