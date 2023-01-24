@@ -97,6 +97,7 @@ function addProduct() {
   inputFieldInitiation();
 
   const btEdit = document.createElement("button");
+  btEdit.className = "editBtn";
   const textEdit = createNode("Edit");
   btEdit.appendChild(textEdit);
 
