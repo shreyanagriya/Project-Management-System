@@ -25,15 +25,15 @@ function errorMsg(idName, error, text) {
 }
 function isEmpty(id, name, price) {
   if (id === "") {
-    errorMsg("pid", error1, "field can't be empty!!!");
+    errorMsg("pid", error1, "Product ID can't be empty!!!");
     return true;
   }
   if (name === "") {
-    errorMsg("pname", error2, "field can't be empty!!!");
+    errorMsg("pname", error2, "Product name can't be empty!!!");
     return true;
   }
   if (price === "") {
-    errorMsg("price", error3, "field can't be empty!!!");
+    errorMsg("price", error3, "Price can't be empty!!!");
     return true;
   }
   return false;
@@ -44,11 +44,13 @@ function make_td(node) {
   return td;
 }
 function onDeleteRow(e) {
-  if (!e.target.classList.contains("deleteBtn")) {
-    return;
+  // if (!e.target.classList.contains("deleteBtn")) {
+  //   return;
+  // }
+  if (confirm("Are you sure you want to delete the product?")) {
+    const btn = e.target;
+    btn.closest("tr").remove();
   }
-  const btn = e.target;
-  btn.closest("tr").remove();
 }
 
 function addProduct() {
