@@ -44,9 +44,9 @@ function make_td(node) {
   return td;
 }
 function onDeleteRow(e) {
-  // if (!e.target.classList.contains("deleteBtn")) {
-  //   return;
-  // }
+  if (!e.target.classList.contains("deleteBtn")) {
+    return;
+  }
   if (confirm("Are you sure you want to delete the product?")) {
     const btn = e.target;
     btn.closest("tr").remove();
